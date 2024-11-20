@@ -7,7 +7,7 @@ public class SlidingSubarrayBeauty {
         getSubarrayBeauty(array, 3,2);
     }
 
-    // Attempt 1
+    // Attempt 1 (doesn't work)
     // Get every possible array combination with the length k.
     // Filter out by checking whether the xth smallest integer is negative.
 

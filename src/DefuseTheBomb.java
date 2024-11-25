@@ -43,7 +43,7 @@ public class DefuseTheBomb {
         return result;
     }
 
-    // Attempt 2 (doesn't dork)
+    // Attempt 2 (doesn't work)
     public int[] decrypt2(int[] code, int k) {
         int[] circular = new int[2 * code.length];
         int[] result = new int[code.length];
@@ -77,7 +77,7 @@ public class DefuseTheBomb {
         return result;
     }
 
-    // Attempt 1 (doesn't dork)
+    // Attempt 1 (doesn't work)
     public int[] decrypt(int[] code, int k) {
         int[] circular = new int[2 * code.length];
         int[] result = new int[code.length];

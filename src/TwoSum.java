@@ -82,39 +82,18 @@ public class TwoSum {
         Map<Integer, Integer> sortedMap = new LinkedHashMap<>();
         map.entrySet()
                 .stream()
-                .sorted((e1, e2) -> Integer.compare(Math.abs(e2.getValue()), Math.abs(e1.getValue())))
+                .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
                 .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
 
         int currentSum = 0;
         List<Integer> list = new ArrayList<>();
 
         for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
-            if (Math.abs(currentSum) + Math.abs(entry.getValue()) <= Math.abs(target) && entry.getValue() != target
-                || target == 0 &&  Math.abs(entry.getValue()) == 0
-                || currentSum == 0 && Math.abs(entry.getValue()) <= Math.abs(target) && entry.getValue() != target) {
-
+            if (Math.abs(currentSum) + Math.abs(entry.getValue()) <= Math.abs(target) || target == 0 &&  Math.abs(entry.getValue()) == 0|| currentSum == 0 && Math.abs(entry.getValue()) <= Math.abs(target)) {
                 currentSum += entry.getValue();
                 list.add(entry.getKey());
             }
         }
-
-
-        if (list.isEmpty() && target == 0) {
-            Map<Integer, Integer> seen = new HashMap<>();
-
-            for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
-                int value = entry.getValue();
-                int complement = -value;
-
-                if (seen.containsKey(complement)) {
-                    list.add(entry.getKey());
-                    list.add(seen.get(complement));
-                } else {
-                    seen.put(value, entry.getKey());
-                }
-            }
-        }
-
         return list.stream().mapToInt(i -> i).toArray();
     }
 

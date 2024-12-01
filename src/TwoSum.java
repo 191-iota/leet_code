@@ -2,9 +2,61 @@ import java.util.*;
 
 public class TwoSum {
     public static void main(String[] args) {
-        int[] array =  {-1,-2,-3,-4,-5};
+        int[] array =  {3,2,4};
 
-        twoSum(array, -8);
+        twoSum5(array, 6);
+    }
+
+    // Attempt 6 (doesn't work)
+    // I might need to entirely change my approach since testcases are bulletproof
+
+    public static int[] twoSum6(int[] nums, int target) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        // Initial indices are put into hashmap
+        for (int i = 0; i < nums.length; i++) {
+            map.put(i, nums[i]);
+        }
+
+        // The indices and values are now sorted by their value
+        Map<Integer, Integer> sortedMap = new LinkedHashMap<>();
+        map.entrySet()
+                .stream()
+                .sorted((e1, e2) -> Integer.compare(Math.abs(e2.getValue()), Math.abs(e1.getValue())))
+                .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
+
+        int currentSum = 0;
+        List<Integer> list = new ArrayList<>();
+
+        for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+            if (Math.abs(currentSum) + Math.abs(entry.getValue()) <= Math.abs(target) && entry.getValue() != target
+                    || target == 0 &&  Math.abs(entry.getValue()) == 0
+                    || currentSum == 0 && Math.abs(entry.getValue()) <= Math.abs(target) && entry.getValue() != target) {
+
+                currentSum += entry.getValue();
+                list.add(entry.getKey());
+            }
+        }
+
+
+        if (list.isEmpty() && target == 0) {
+            Map<Integer, Integer> seen = new HashMap<>();
+
+            for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+                int value = entry.getValue();
+                int complement = -value;
+
+                if (seen.containsKey(complement)) {
+                    list.add(entry.getKey());
+                    list.add(seen.get(complement));
+                } else {
+                    seen.put(value, entry.getKey());
+                }
+            }
+        }
+
+        return list.stream().mapToInt(i -> i).toArray();
     }
 
     // Assignment: Array indices of the shortest amount of array values summing up to target
@@ -30,18 +82,39 @@ public class TwoSum {
         Map<Integer, Integer> sortedMap = new LinkedHashMap<>();
         map.entrySet()
                 .stream()
-                .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
+                .sorted((e1, e2) -> Integer.compare(Math.abs(e2.getValue()), Math.abs(e1.getValue())))
                 .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
 
         int currentSum = 0;
         List<Integer> list = new ArrayList<>();
 
         for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
-            if (Math.abs(currentSum) + Math.abs(entry.getValue()) <= Math.abs(target) || target == 0 &&  Math.abs(entry.getValue()) == 0|| currentSum == 0 && Math.abs(entry.getValue()) <= Math.abs(target)) {
+            if (Math.abs(currentSum) + Math.abs(entry.getValue()) <= Math.abs(target) && entry.getValue() != target
+                || target == 0 &&  Math.abs(entry.getValue()) == 0
+                || currentSum == 0 && Math.abs(entry.getValue()) <= Math.abs(target) && entry.getValue() != target) {
+
                 currentSum += entry.getValue();
                 list.add(entry.getKey());
             }
         }
+
+
+        if (list.isEmpty() && target == 0) {
+            Map<Integer, Integer> seen = new HashMap<>();
+
+            for (Map.Entry<Integer, Integer> entry : sortedMap.entrySet()) {
+                int value = entry.getValue();
+                int complement = -value;
+
+                if (seen.containsKey(complement)) {
+                    list.add(entry.getKey());
+                    list.add(seen.get(complement));
+                } else {
+                    seen.put(value, entry.getKey());
+                }
+            }
+        }
+
         return list.stream().mapToInt(i -> i).toArray();
     }
 

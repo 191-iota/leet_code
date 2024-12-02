@@ -7,6 +7,28 @@ public class TwoSum {
         twoSum5(array, 6);
     }
 
+    // I missed the point of two sum I didn't realize that there can only be two pairs bruh
+    // Essentially, in my previous attempts I tried to solve "Xsum" lmao
+
+    // This works
+
+    public static int[] twoSum7(int[] nums, int target) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+
+            map.put(nums[i], i);
+        }
+
+        throw new RuntimeException("No such solution");
+    }
+
     // Attempt 6 (doesn't work)
     // I might need to entirely change my approach since testcases are bulletproof
 

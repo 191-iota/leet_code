@@ -17,7 +17,7 @@ public class DefuseTheBomb {
         int[] result = new int[code.length];
         int sum = 0;
 
-        // fill up circular two times
+        // fill up standard array two times
         for (int i = 0; i < code.length; i++) {
             circular[i] = code[i];
             circular[i + code.length] = code[i];

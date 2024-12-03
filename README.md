@@ -4,4 +4,4 @@
 - DefuseTheBomb / Easy => solved
 - CalculateDelayedArrivalTime / Easy => solved
 - SumOfMultiples / Easy => solved
-- SlidingSideArray / Medium => in progress
+- SlidingSideArray / Medium => solved

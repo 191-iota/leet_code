@@ -8,6 +8,38 @@ public class SlidingSubarrayBeauty {
 
     }
 
+    // Attempt 4 (finally works holy shit)
+
+    public static int[] getSubarrayBeauty4(int[] nums, int k, int x) {
+        // The constraints say that there can be up to 100 elements from -50 to 50
+        int[] frequency = new int[101];
+        int[] result = new int[nums.length - k + 1];
+
+        for (int i = 0; i < nums.length; i++) {
+            // Numbers could have a difference of 100, so I'll start at the center
+            frequency[nums[i] + 50]++;
+
+            if (i >= k) {
+                frequency[nums[i - k] + 50]--;
+            }
+
+            if (i >= k - 1) {
+                int counter = 0;
+
+                for (int j = 0; j < frequency.length; j++) {
+                    counter += frequency[j];
+
+                    if (counter >= x) {
+                        result[i - k - 1] = Math.min(j - 50, 0);
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
     // Attempt 3 (doesn't work)
 
     public static int[] getSubarrayBeauty3(int[] nums, int k, int x) {

@@ -7,8 +7,8 @@ public class TwoSum {
         twoSum5(array, 6);
     }
 
-    // I missed the point of two sum I didn't realize that there can only be two pairs bruh
-    // Essentially, in my previous attempts I tried to solve "Xsum" lmao
+    // I missed the point of two sum I didn't realize that there can only be two pairs
+    // Essentially, in my previous attempts I tried to solve "Xsum"
 
     // This works
 

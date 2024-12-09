@@ -11,6 +11,45 @@ public class AddTwoNumbers {
         addTwoNumbers(l1, l2);
     }
 
+
+    // Attempt 3 - Alternative (works)
+
+    public static ListNode addTwoNumbers3(ListNode l1, ListNode l2) {
+        ListNode resultNode = new ListNode();
+        ListNode linker = resultNode; // They now point to the same object.
+
+        ListNode l1Linker = l1;
+        ListNode l2Linker = l2;
+
+        int carry = 0;
+        int current = 0;
+
+        while (l1Linker != null || l2Linker != null) {
+
+            if (l1Linker != null) {
+                current += l1Linker.val;
+            }
+
+            if (l2Linker != null) {
+                current += l2Linker.val;
+            }
+
+            carry = current / 10;
+            linker.next = new ListNode( (current) % 10);
+
+            current = carry;
+            linker = linker.next;
+            l1Linker = l1Linker != null ? l1Linker.next : null;
+            l2Linker = l2Linker != null ? l2Linker.next : null;
+        }
+
+        if(carry != 0) {
+            linker.next = new ListNode(carry);
+        }
+
+        return resultNode.next;
+    }
+
     // Attempt 2 - Alternative (does not work)
 
     public static ListNode addTwoNumbers2(ListNode l1, ListNode l2) {

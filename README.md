@@ -8,6 +8,8 @@
 - SumOfMultiples
 - RomanToInteger
 - IsPalindrome
+- SearchInsert
+- RemoveElement
 
 ### Medium
 - SlidingSideArray

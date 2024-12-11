@@ -10,6 +10,7 @@
 - IsPalindrome
 - SearchInsert
 - RemoveElement
+- MergeTwoSortedLists
 
 ### Medium
 - SlidingSideArray

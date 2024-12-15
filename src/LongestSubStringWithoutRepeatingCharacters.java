@@ -7,6 +7,36 @@ public class LongestSubStringWithoutRepeatingCharacters {
         lengthOfLongestSubstring(s);
     }
 
+    // Attempt 3 (works)
+    public static int lengthOfLongestSubstring3(String s) {
+
+        char[] chars = s.toCharArray();
+
+        List<Character> uniqueChars = new ArrayList<>();
+        List<Integer> scores = new ArrayList<>();
+
+        if (chars.length == 0) {
+            return 0;
+        }
+
+        for (int i = 0; i < chars.length; i++) {
+            if (uniqueChars.contains(chars[i])) {
+                scores.add(uniqueChars.size());
+
+                for (int j = uniqueChars.indexOf(chars[i]); j >= 0; j--) {
+                    uniqueChars.remove(j);
+                }
+
+                uniqueChars.add(chars[i]);
+
+            } else {
+                uniqueChars.add(chars[i]);
+            }
+        }
+        scores.add(uniqueChars.size());
+
+        return Collections.max(scores);
+    }
 
 
     // Attempt 2 - (doesn't work)
@@ -17,7 +47,7 @@ public class LongestSubStringWithoutRepeatingCharacters {
         List<Character> uniqueChars = new ArrayList<>();
         int offset = 0;
 
-        if(chars.length == 0) {
+        if (chars.length == 0) {
             return 0;
         }
 
@@ -51,7 +81,7 @@ public class LongestSubStringWithoutRepeatingCharacters {
         Set<Character> uniqueChars = new HashSet<>();
         List<Integer> uniqueOccurrences = new ArrayList<>();
 
-        if(chars.length == 0) {
+        if (chars.length == 0) {
             return 0;
         }
 

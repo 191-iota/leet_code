@@ -11,8 +11,8 @@
 - SearchInsert
 - RemoveElement
 - MergeTwoSortedLists
-- LongestSubStringWithoutRepeatingCharacters
 
 ### Medium
 - SlidingSideArray
 - AddTwoNumbers
+- LongestSubStringWithoutRepeatingCharacters

@@ -11,6 +11,7 @@
 - SearchInsert
 - RemoveElement
 - MergeTwoSortedLists
+- ValidParenthesis
 
 ### Medium
 - SlidingSideArray

@@ -5,21 +5,59 @@ public class ValidParenthesis {
 
     }
 
+    // Attempt 3 - (works)
+    // Here I tried solving it on my own way but ended up implementing
+    // a raw stack functionality which is the most optimal I think
+    public static boolean isValid3(String s) {
+        short[] window = new short[s.length()];
+        char[] cArray = s.toCharArray();
+
+        if ((cArray.length) % 2 != 0) {
+            return false;
+        }
+
+        for (short i = 0; i < cArray.length; i++) {
+            switch (cArray[i]) {
+                case ')' -> window[i] = 1;
+                case '}' -> window[i] = 2;
+                case ']' -> window[i] = 3;
+                case '[' -> window[i] = -3;
+                case '{' -> window[i] = -2;
+                case '(' -> window[i] = -1;
+            }
+        }
+
+        short top = -1;
+        for (short i = 0; i < window.length; i++) {
+            if (window[i] < 0) {
+                // Open
+                window[++top] = window[i];
+            } else {
+                // closing bracket, check if it matches the top of the stack
+                if (top == -1 || window[top] + window[i] != 0) {
+                    return false;
+                }
+                top--;
+            }
+        }
+        return top == -1;
+    }
+
     // Attempt 2 - (works)
-// Since this is getting too complex i will try implementing a cache stack
-// Still too overengineered
+    // Since this is getting too complex i will try implementing a cache stack
+    // Still too overengineered
     public static boolean isValid2(String s) {
         Stack<Character> stack = new Stack<>();
         Stack<Character> cache = new Stack<>();
 
-        for(char c : s.toCharArray()){
+        for (char c : s.toCharArray()) {
             stack.push(c);
         }
 
         while (!stack.isEmpty()) {
             char itemToSearch = 'X';
 
-            if(stack.size() != cache.size()) {
+            if (stack.size() != cache.size()) {
                 switch (stack.peek()) {
                     case ')' -> itemToSearch = '(';
                     case '}' -> itemToSearch = '{';
@@ -27,7 +65,7 @@ public class ValidParenthesis {
                 }
             }
 
-            if(!cache.isEmpty() && stack.peek() == cache.peek()){
+            if (!cache.isEmpty() && stack.peek() == cache.peek()) {
                 stack.pop();
                 cache.pop();
             } else if (stack.peek() == ')' || stack.peek() == ']' || stack.peek() == '}') {
@@ -47,7 +85,7 @@ public class ValidParenthesis {
     // Attempt 1 - (doesn't work)
     public static boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
-        for(char c : s.toCharArray()){
+        for (char c : s.toCharArray()) {
             stack.push(c);
         }
 
@@ -63,12 +101,12 @@ public class ValidParenthesis {
 
             if (stack.peek() == ')' && stack.search(itemToSearch) == 2 ||
                     stack.peek() == '}' && stack.search(itemToSearch) == 2 ||
-                    stack.peek()== ']' && stack.search(itemToSearch) == 2) {
+                    stack.peek() == ']' && stack.search(itemToSearch) == 2) {
                 stack.pop();
                 stack.pop();
             } else if (stack.peek() == ')' && stack.search(itemToSearch) % 2 == 0 ||
-                    stack.peek() == '}' && stack.search(itemToSearch) % 2 == 0||
-                    stack.peek()== ']' && stack.search(itemToSearch) % 2 == 0) {
+                    stack.peek() == '}' && stack.search(itemToSearch) % 2 == 0 ||
+                    stack.peek() == ']' && stack.search(itemToSearch) % 2 == 0) {
                 stack.pop();
                 uneven = true;
             } else if (stack.size() == 1 && uneven) {

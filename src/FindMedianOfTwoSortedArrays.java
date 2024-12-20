@@ -3,6 +3,48 @@ import java.util.List;
 
 public class FindMedianOfTwoSortedArrays {
 
+    // Attempt 2 - (works)
+    public static double findMedianSortedArray2(int[] nums1, int[] nums2) {
+        // This can be optimized
+        int[] result = new int[nums1.length + nums2.length];
+
+        short resultIndex = 0;
+        short firstPointer = 0;
+        short secondPointer = 0;
+
+        while (firstPointer < nums1.length && secondPointer < nums2.length) {
+            if (nums1[firstPointer] >= nums2[secondPointer]) {
+                result[resultIndex] = nums2[secondPointer];
+                secondPointer++;
+            } else if (nums1[firstPointer] < nums2[secondPointer]) {
+                result[resultIndex] = nums1[firstPointer];
+                firstPointer++;
+            }
+            resultIndex++;
+        }
+
+        if (firstPointer < nums1.length) {
+            while (firstPointer < nums1.length) {
+                result[resultIndex] = nums1[firstPointer];
+                firstPointer++;
+                resultIndex++;
+            }
+        } else {
+            while (secondPointer < nums2.length) {
+                result[resultIndex] = nums2[secondPointer];
+                secondPointer++;
+                resultIndex++;
+            }
+        }
+
+
+        if (result.length % 2 == 0) {
+            return (result[result.length / 2] +  result[result.length / 2 - 1]) / 2.0;
+        } else {
+            return result[result.length / 2];
+        }
+    }
+
     // Attempt 1 - (works)
     // Recall of the median: the absolute middle
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {

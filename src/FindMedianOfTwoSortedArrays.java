@@ -3,6 +3,57 @@ import java.util.List;
 
 public class FindMedianOfTwoSortedArrays {
 
+    public static void main(String[] args) {
+        int[] nums1 = {1,2};
+        int[] nums12 = {3,4};
+        findMedianSortedArray3(nums1, nums12);
+    }
+
+    // Attempt 3 - (does not work)
+    public static double findMedianSortedArray3(int[] nums1, int[] nums2) {
+        // This can be optimized
+        int[] result = new int[nums1.length + nums2.length / 2];
+
+        short resultIndex = 0;
+        short firstPointer = 0;
+        short secondPointer = 0;
+
+        while (firstPointer < nums1.length && secondPointer < nums2.length && resultIndex < result.length) {
+            if (nums1[firstPointer] >= nums2[secondPointer]) {
+                result[resultIndex] = nums2[secondPointer];
+                secondPointer++;
+            } else if (nums1[firstPointer] < nums2[secondPointer]) {
+                result[resultIndex] = nums1[firstPointer];
+                firstPointer++;
+            }
+            resultIndex++;
+        }
+
+        if (firstPointer < nums1.length) {
+            while (firstPointer < nums1.length && firstPointer + secondPointer < result.length) {
+                result[resultIndex] = nums1[firstPointer];
+                firstPointer++;
+                resultIndex++;
+            }
+
+        } else {
+            while (secondPointer < nums2.length && firstPointer + secondPointer < result.length) {
+                result[resultIndex] = nums2[secondPointer];
+                secondPointer++;
+                resultIndex++;
+            }
+        }
+
+
+        if (nums1.length + nums2.length % 2 == 0) {
+            return (result[result.length - 1] +  result[result.length - 2]) / 2.0;
+        } else {
+            return result[result.length - 1];
+        }
+
+    }
+
+
     // Attempt 2 - (works)
     public static double findMedianSortedArray2(int[] nums1, int[] nums2) {
         // This can be optimized

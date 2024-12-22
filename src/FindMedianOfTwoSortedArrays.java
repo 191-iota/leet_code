@@ -10,6 +10,52 @@ public class FindMedianOfTwoSortedArrays {
     }
 
     // Attempt 3 - (does not work)
+    public static double findMedianSortedArray4(int[] nums1, int[] nums2) {
+
+        short firstPointer = 0;
+        short secondPointer = 0;
+
+        while (firstPointer < nums1.length && secondPointer < nums2.length && firstPointer + secondPointer < (nums1.length + nums2.length) / 2) {
+            if (nums1[firstPointer] >= nums2[secondPointer]) {
+                secondPointer++;
+            } else if (nums1[firstPointer] < nums2[secondPointer]) {
+                firstPointer++;
+            }
+        }
+
+        if (firstPointer < nums1.length) {
+            while (firstPointer < nums1.length && firstPointer + secondPointer < (nums1.length + nums2.length) / 2) {
+                firstPointer++;
+            }
+
+        } else {
+            while (secondPointer < nums2.length && firstPointer + secondPointer < (nums1.length + nums2.length) / 2) {
+                secondPointer++;
+            }
+        }
+
+
+        if ((nums1.length + nums2.length) % 2 != 0) {
+            if (firstPointer == (nums1.length + nums2.length) / 2 + 1&& firstPointer > 0) {
+                return nums1[firstPointer - 1];
+            } else if (firstPointer == (nums1.length + nums2.length) / 2 + 1&& firstPointer == 0) {
+                return nums1[firstPointer];
+            } else if (firstPointer + secondPointer == (nums1.length + nums2.length) / 2 && secondPointer == 0) {
+                return nums2[secondPointer];
+            } else {
+                return nums2[secondPointer - 1];
+            }
+        } else {
+            if (firstPointer == 0 && secondPointer > 0) {
+                return (double) (nums1[firstPointer] + nums2[secondPointer - 1]) / 2;
+            } else if (firstPointer > 0 && secondPointer == 0) {
+                return (double) (nums1[firstPointer - 1] + nums2[secondPointer]) / 2;
+            }
+            return (double) (nums1[firstPointer - 1] + nums2[secondPointer - 1]) / 2;
+        }
+    }
+
+    // Attempt 3 - (does not work)
     public static double findMedianSortedArray3(int[] nums1, int[] nums2) {
         // This can be optimized
         int[] result = new int[nums1.length + nums2.length / 2];

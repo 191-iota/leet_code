@@ -9,7 +9,35 @@ public class FindMedianOfTwoSortedArrays {
         findMedianSortedArray3(nums1, nums12);
     }
 
-    // Attempt 3 - (does not work)
+    // Attempt 5 - (works)
+    public static double findMedianSortedArray5(int[] nums1, int[] nums2) {
+
+        short firstPointer = 0;
+        short secondPointer = 0;
+
+        int currentMedian = 0;
+        int lastMedian = 0;
+
+        while (firstPointer + secondPointer < (nums1.length + nums2.length) / 2 + 1) {
+            if (secondPointer >= nums2.length || (firstPointer < nums1.length && nums1[firstPointer] < nums2[secondPointer])) {
+                lastMedian = currentMedian;
+                currentMedian = nums1[firstPointer];
+                firstPointer++;
+            } else {
+                lastMedian = currentMedian;
+                currentMedian = nums2[secondPointer];
+                secondPointer++;
+            }
+        }
+
+        if ((nums1.length + nums2.length) % 2 != 0) {
+            return currentMedian;
+        } else {
+            return (currentMedian + lastMedian) / 2.0;
+        }
+    }
+
+    // Attempt 4 - (does not work)
     public static double findMedianSortedArray4(int[] nums1, int[] nums2) {
 
         short firstPointer = 0;

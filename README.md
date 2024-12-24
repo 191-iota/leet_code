@@ -12,6 +12,7 @@
 - RemoveElement
 - MergeTwoSortedLists
 - ValidParenthesis
+- LongestCommonPrefix
 
 ### Medium
 - SlidingSideArray
@@ -20,4 +21,4 @@
 
 ### Hard
 
-FindMedianOfTwoSortedArrays
+- FindMedianOfTwoSortedArrays

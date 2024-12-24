@@ -8,7 +8,7 @@ public class SlidingSubarrayBeauty {
 
     }
 
-    // Attempt 4 (finally works holy shit)
+    // Attempt 4 (works)
 
     public static int[] getSubarrayBeauty4(int[] nums, int k, int x) {
         // The constraints say that there can be up to 100 elements from -50 to 50

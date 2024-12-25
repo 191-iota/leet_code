@@ -1,15 +1,42 @@
 public class LongestCommonPrefix {
     public static void main(String[] args) {
-        String[] test = {"ab", "a"};
-        longestCommonPrefix(test);
+        String[] test = {"ac","ac","a","a"};
+        longestCommonPrefix2(test);
+    }
+
+    // Attempt 2 - (does not work)
+    public static String longestCommonPrefix2(String[] strs) {
+
+        if (strs.length == 0) return "";
+        if (strs.length == 1) return strs[0];
+
+        int commonPrefixLength = 0;
+        int shortestLength = strs[0].length();
+        // evaluate the shortest length of a word which can be the longest prefix
+        for (int i = 0; commonPrefixLength < shortestLength; i++) {
+            if (i < strs.length && strs[i].length() < shortestLength) {
+                shortestLength = strs[i].length();
+                i--;
+                continue;
+            }
+
+            for (int j = 0; j < strs.length - 1; j++) {
+                if(strs[j + 1].isEmpty() || strs[j].charAt(commonPrefixLength) != strs[j + 1].charAt(commonPrefixLength)) {
+                    return strs[j].substring(0, commonPrefixLength);
+                }
+            }
+            commonPrefixLength++;
+        }
+
+        return strs[0].substring(0, commonPrefixLength);
     }
 
 
-    // Attempt 1 - (in progress)
+    // Attempt 1 - (works)
     public static String longestCommonPrefix(String[] strs) {
 
-        if(strs.length == 0) return "";
-        if(strs.length == 1) return strs[0];
+        if (strs.length == 0) return "";
+        if (strs.length == 1) return strs[0];
 
         int commonPrefixLength = 0;
         int shortestLength = strs[0].length();

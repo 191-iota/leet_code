@@ -13,6 +13,7 @@
 - MergeTwoSortedLists
 - ValidParenthesis
 - LongestCommonPrefix
+- RemoveDuplicatesFromSortedArray
 
 ### Medium
 - SlidingSideArray
@@ -20,5 +21,4 @@
 - LongestSubStringWithoutRepeatingCharacters
 
 ### Hard
-
 - FindMedianOfTwoSortedArrays

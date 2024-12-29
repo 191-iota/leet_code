@@ -14,6 +14,7 @@
 - ValidParenthesis
 - LongestCommonPrefix
 - RemoveDuplicatesFromSortedArray
+- LengthOfLastWord
 
 ### Medium
 - SlidingSideArray

@@ -8,48 +8,6 @@ public class InsertInterval {
         insert3(test, newInterval);
     }
 
-    public static int[][] insert7c(int[][] intervals, int[] newInterval) {
-        if (intervals.length == 0) return new int[][] {newInterval};
-
-        int lo = 0, hi = intervals.length - 1;
-        while (lo <= hi) {
-            int mid = (lo + hi) >>> 1;
-            if (intervals[mid][1] < newInterval[0]) lo = mid + 1;
-            else hi = mid - 1;
-        }
-        int left = lo;
-
-        lo = 0; hi = intervals.length - 1;
-        while (lo <= hi) {
-            int mid = (lo + hi) >>> 1;
-            if (intervals[mid][0] <= newInterval[1]) lo = mid + 1;
-            else hi = mid - 1;
-        }
-        int right = hi;
-
-        if (left == intervals.length) {
-            int[][] ans = Arrays.copyOf(intervals, intervals.length + 1);
-            ans[intervals.length] = newInterval;
-            return ans;
-        }
-        if (right < 0) {
-            int[][] ans = new int[intervals.length + 1][];
-            ans[0] = newInterval;
-            System.arraycopy(intervals, 0, ans, 1, intervals.length);
-            return ans;
-        }
-
-        newInterval[0] = Math.min(newInterval[0], intervals[left][0]);
-        newInterval[1] = Math.max(newInterval[1], intervals[right][1]);
-
-        int newSize = intervals.length - (right - left);
-        int[][] result = new int[newSize][2];
-        System.arraycopy(intervals, 0, result, 0, left);
-        result[left] = newInterval;
-        System.arraycopy(intervals, right + 1, result, left + 1, intervals.length - right - 1);
-        return result;
-    }
-
     // attempt 7 - arraylist
     private static int[][] insert7b(int[][] intervals, int[] newInterval) {
         List<int[]> result = new ArrayList<>();

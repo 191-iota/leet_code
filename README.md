@@ -20,6 +20,7 @@
 - SlidingSideArray
 - AddTwoNumbers
 - LongestSubStringWithoutRepeatingCharacters
+- JumpGameII
 
 ### Hard
 - FindMedianOfTwoSortedArrays

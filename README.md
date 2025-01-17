@@ -15,6 +15,8 @@
 - LongestCommonPrefix
 - RemoveDuplicatesFromSortedArray
 - LengthOfLastWord
+- RepeatedSubstringPattern
+- FindTheIndexOfFirstOccurrence
 
 ### Medium
 - SlidingSideArray

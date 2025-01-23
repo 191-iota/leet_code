@@ -2,7 +2,37 @@ public class DivideTwoIntegers {
   public static void main(String[] args) {
     System.out.println(divide(-2147483648, -1));
   }
-
+  
+  // attempt 4 (optimized) - works
+  public static int divide4o(int dividend, int divisor) {
+    if (dividend == Integer.MIN_VALUE && divisor == -1) {
+        return Integer.MAX_VALUE;
+    } else if (dividend == Integer.MIN_VALUE && divisor == 1) {
+        return Integer.MIN_VALUE;
+    }
+    
+    boolean isNegative = (dividend < 0) ^ (divisor < 0);
+    
+    long absoluteDividend = (dividend == Integer.MIN_VALUE) ? (long) Integer.MAX_VALUE + 1: Math.abs(dividend);
+    long absoluteDivisor = (divisor == Integer.MIN_VALUE) ? (long) Integer.MAX_VALUE + 1: Math.abs(divisor);
+    
+    int quotient = 0;
+    
+    while (absoluteDividend >= absoluteDivisor) {
+        int powerOfTwo = 0;
+    
+        while ((absoluteDivisor << powerOfTwo) > 0 && (absoluteDivisor << powerOfTwo) <= absoluteDividend) {
+            powerOfTwo++;
+        }
+    
+        powerOfTwo--;
+        quotient += (1 << powerOfTwo);
+        absoluteDividend -= (absoluteDivisor << powerOfTwo);
+    }
+    
+    return isNegative ? -quotient : quotient;
+  }
+  
   // attempt 3 - does not work
   public static int divide3(int dividend, int divisor) {
     boolean isNegative;

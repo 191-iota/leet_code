@@ -1,9 +1,57 @@
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class PlusOne {
+    public static void main(String[] args) {
+        int[] testArray = {9,8,9};
+        System.out.println(Arrays.toString(plusOne4(testArray)));
+    }
     
+    // attempt 4 - works
+    public static int[] plusOne4(int[] digits) {
+        
+        if(digits[digits.length - 1] < 9) {
+            digits[digits.length - 1]++;
+            return digits;
+        }
+        
+        int incrementableIndex = -1;
 
-    // attempt 2 - does not work
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if(digits[i] != 9) {
+                incrementableIndex = i;
+                break;
+            }
+        }
+
+        int[] carryArray;
+
+        if(incrementableIndex == -1) { 
+            carryArray = new int[digits.length + 1];
+        } else {
+            carryArray = new int[digits.length];
+
+        }
+        
+        boolean incrementSet = false; 
+
+        for (int i = 0; i < carryArray.length; i++) {
+            if(incrementableIndex == -1 && !incrementSet) {
+                carryArray[i] = 1;
+                incrementSet = true;
+            } else if(i == incrementableIndex && !incrementSet) {
+                carryArray[i] = ++digits[i];
+                incrementSet = true;
+            } else if (i < digits.length && incrementSet && digits[i] == 9){
+                carryArray[i] = 0;
+            } else if (i < digits.length) {
+                carryArray[i] = digits[i];
+            }
+        }
+        return carryArray;
+    }
+
+    // attempt 3 - does not work
     public static int[] plusOne3(int[] digits) {
 
         if(digits[digits.length - 1] < 9) {
@@ -19,7 +67,7 @@ public class PlusOne {
             }
         }
 
-        int[] carryArray = new int[digits.length + 1];
+        int[] carryArray = new int[digits.length + 1]; 
 
         for (int i = 0; i < carryArray.length; i++) {
             if (i < carryArray.length - 1 - carry) {

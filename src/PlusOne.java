@@ -1,13 +1,54 @@
 import java.math.BigInteger;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 
 public class PlusOne {
     public static void main(String[] args) {
-        int[] testArray = {9,8,9};
-        System.out.println(Arrays.toString(plusOne4(testArray)));
+
+        int[] testArray = {9,9,9,9,9,9};
+        
+        Instant now = Instant.now();
+        plusOne4(testArray);
+        Instant stop = Instant.now();
+        System.out.println(Duration.between(now, stop));
+
+        Instant now1 = Instant.now();
+        plusOne4o(testArray);
+        Instant stop1 = Instant.now();
+        System.out.println(Duration.between(now1, stop1).toNanos());
+
     }
     
-    // attempt 4 - works
+    // attempt 4 optimized - works
+    public static int[] plusOne4o(int[] digits) {
+        
+        int incrementableIndex = -1;
+
+        // first index got already checked
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if(digits[i] != 9) {
+                incrementableIndex = i;
+                break;
+            }
+        }
+
+        if(incrementableIndex == -1) { 
+            int[] incrementedArray = new int[digits.length + 1];
+            incrementedArray[0] = 1;
+            return incrementedArray;
+        }
+
+        int[] carryArray = new int[digits.length];
+        carryArray[incrementableIndex] = ++digits[incrementableIndex];
+        
+        for (int i = incrementableIndex; i >= 0; i--) {
+            if(i < digits.length) carryArray[i] = digits[i];
+        }
+
+        return carryArray;
+    }
+
     public static int[] plusOne4(int[] digits) {
         
         if(digits[digits.length - 1] < 9) {

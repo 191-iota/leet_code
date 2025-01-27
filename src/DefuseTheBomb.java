@@ -13,7 +13,7 @@ public class DefuseTheBomb {
   public int[] decrypt3(int[] code, int k) {
     int[] circular = new int[2 * code.length];
     int[] result = new int[code.length];
-    int sum = 0;
+    int sum = 0;  
 
     // fill up standard array two times
     for (int i = 0; i < code.length; i++) {

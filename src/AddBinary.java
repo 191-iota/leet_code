@@ -6,6 +6,7 @@ public class AddBinary {
         
     }
 
+    // attempt 4 (optimized) - works
     public static String addBinary4(String a, String b) {
         StringBuilder result = new StringBuilder();
     

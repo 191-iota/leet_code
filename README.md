@@ -17,9 +17,11 @@
 - LengthOfLastWord
 - RepeatedSubstringPattern
 - FindTheIndexOfFirstOccurrence
+- AddBinary
+- PlusOne
 
 ### Medium
-- SlidingSideArray
+- SlidingSubarrayBeauty
 - AddTwoNumbers
 - LongestSubStringWithoutRepeatingCharacters
 - JumpGameII

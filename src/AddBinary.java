@@ -5,6 +5,42 @@ public class AddBinary {
     public static void main(String[] args) {
         
     }
+
+    public static String addBinary4(String a, String b) {
+        StringBuilder result = new StringBuilder();
+    
+        int carry = 0;
+        int pointer = 0;
+        int minLength = Math.min(a.length(), b.length());
+    
+        while (pointer < minLength) {
+            int currentSum = carry;
+            currentSum += a.charAt(a.length() - 1 - pointer) - '0';
+            currentSum += b.charAt(b.length() - 1 - pointer) - '0';
+    
+            result.append(currentSum % 2);
+            carry = currentSum / 2;
+            pointer++;
+        }
+    
+        String larger = a.length() > b.length() ? a : b;
+    
+        while (pointer < larger.length()) {
+            int currentSum = carry;
+            currentSum += larger.charAt(larger.length() - 1 - pointer) - '0';
+            result.append(currentSum % 2);
+            carry = currentSum / 2;
+            pointer++;
+        }
+    
+        if(carry > 0) {
+            result.append(carry);
+        }
+    
+        result.reverse();
+    
+        return result.toString();
+    }
     
     // attempt 3 - optimized
     public static String addBinary3(String a, String b) {

@@ -1,3 +1,4 @@
+package SymmetricTree;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,7 +7,27 @@ public class SymmetricTree {
           isSymmetric(generateSymmetricTree());
       }
   
-      // inorder traversal
+        // attempt 2 - works
+        private static boolean isSymmetric2(TreeNode root) {
+
+        if(root == null) {
+            return false;
+        }
+
+        return isSymmetricNodeTraversal(root.left, root.right);
+      }
+
+      private static boolean isSymmetricNodeTraversal(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }
+
+        if (left == null || right == null || right.val != left.val) {
+            return false;
+        }
+        return isSymmetricNodeTraversal(right.left, left.right) && isSymmetricNodeTraversal(right.right, left.left);
+      }
+      // inorder traversal attempt 1
       private static boolean isSymmetric(TreeNode root) {
           List<Integer> right = new ArrayList<>();
           List<Integer> left = new ArrayList<>();

@@ -19,6 +19,7 @@
 - FindTheIndexOfFirstOccurrence
 - AddBinary
 - PlusOne
+- SymmetricTree
 
 ### Medium
 - SlidingSubarrayBeauty

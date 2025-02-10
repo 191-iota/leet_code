@@ -4,7 +4,35 @@ public class SqrtOfX {
     System.out.println(sqrtX(49));
   }
 
-  // attempt 2 - works but slow
+  // attempt 3 - works but still slow - 6 ms
+  private static int sqrtX3(int x) {
+    int i = 1;
+    int multiplier = 1;
+
+    if (x > 100) {
+      // Exponential growth phase
+      while ((long) i * i <= x) {
+        multiplier *= 2;
+        i *= multiplier;
+      }
+
+      // Exponential step-down phase
+      while (multiplier > 1) {
+        multiplier /= 2;
+        i /= 2;
+        if ((long) i * i <= x) break;
+      }
+
+      // Linear search correction
+      while ((long) i * i < x) i++;
+    } else {
+      while (i * i < x) i++;
+    }
+
+    return (i * i == x) ? i : i - 1;
+  }
+
+  // attempt 2 - works but slow - 28 ms
   private static int sqrtX(int x) {
     int i = 1;
     int multiplier = 1;
@@ -31,8 +59,8 @@ public class SqrtOfX {
 
     return (long) i * i > x ? i - 1 : i;
   }
-  
-  // attempt 1 - works but slow
+
+  // attempt 1 - works but slow - 32 ms
   // constraints: 0 <= x <= 2^31 - 1
   private static int sqrtX1(int x) {
     return sqrtXHelper(1, x);

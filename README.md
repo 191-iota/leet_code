@@ -20,6 +20,7 @@
 - AddBinary
 - PlusOne
 - SymmetricTree
+- SqrtOfX -> In progress
 
 ### Medium
 - SlidingSubarrayBeauty

@@ -4,6 +4,29 @@ public class SqrtOfX {
     System.out.println(sqrtX(49));
   }
 
+  // attempt 4 - does not work
+  private static int sqrtX4(int x) {
+    if(x == 0) return 0;
+    int i = x;
+
+    while (i > x / i) {
+        i /= 2;
+    }
+
+    int left = i, right = x;
+    
+    while (left < right) {
+        int mid = (left + right + 1) / 2;
+        if (mid > x / mid) {
+            right = mid - 1;
+        } else {
+            left = mid;
+        }
+    }
+
+    return i - 1;
+  }
+
   // attempt 3 - works but still slow - 6 ms
   private static int sqrtX3(int x) {
     int i = 1;

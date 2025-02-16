@@ -1,9 +1,24 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 public class LongestSubStringWithoutRepeatingCharacters {
   public static void main(String[] args) {
-    String s = "pwwkew";
-    lengthOfLongestSubstring(s);
+    String testString =
+        "abcdefghijklmnopqrstuvwxyz".repeat(1000)
+            + // Repeating unique characters
+            "A".repeat(5000)
+            + // Long repeating sequence
+            "1234567890".repeat(500)
+            + // Numeric patterns
+            "!@#$%^&*()_+-=".repeat(1000)
+            + // Special characters
+            "TheQuickBrownFoxJumpsOverTheLazyDog".repeat(500)
+            + // Mixed case
+            "X".repeat(10000);
+    Instant now = Instant.now();
+    lengthOfLongestSubstring3(testString);
+    System.out.println(Duration.between(now, Instant.now()).toMillis());
   }
 
   // Attempt 3 (works)

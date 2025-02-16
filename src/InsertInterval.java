@@ -1,10 +1,14 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 public class InsertInterval {
   public static void main(String[] args) {
     int[][] test = {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
     int[] newInterval = {4, 8};
+    Instant now = Instant.now();
     insert3(test, newInterval);
+    System.out.println(Duration.between(now, Instant.now()).toNanos());
   }
 
   // attempt 7 - arraylist

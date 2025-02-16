@@ -5,6 +5,10 @@ import java.util.Set;
 
 public class RepeatedSubstringPattern {
   public static void main(String[] args) {
+
+    Instant now = Instant.now();
+    repeatedSubstringPattern2o("aasaasaasaasaasaasaas");
+    System.out.println(Duration.between(now, Instant.now()).toNanos());
   }
 
   private static boolean repeatedSubstringPattern2o(String s) {

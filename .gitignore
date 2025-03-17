@@ -1,8 +1,40 @@
-### VS Code ###
+# Cargo package manager
+target/
+**/target/
+Cargo.lock
+Cargo.toml.orig
+
+# Rust compilation artifacts
+*.rs.bk
+*.rlib
+
+# Rust build tool directories
+debug/
+release/
+
+# IDE/editor specific
+.idea/
 .vscode/
-
-### Mac OS ###
-.DS_Store
-
-
 *.iml
+
+# Logs, backups, and temp files
+*.log
+*.bak
+*.swp
+*.swo
+*.swn
+*.DS_Store
+
+# Rust test and benchmarking tools
+/tests/**/target/
+benches/**/target/
+
+# Rust tooling
+rustfmt.toml
+clippy.toml
+
+# Rust documentation
+doc/
+
+# Other OS-specific files
+Thumbs.db

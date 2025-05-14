@@ -1,9 +1,9 @@
-fn main() {
+fn main() { 
     println!("{}", search_insert(vec![1, 2, 3], 2));
 }
 
 // Attempt 1o - binary search
-pub fn search_insert1o(Vec<i32>, target: i32) -> i32 {
+pub fn search_insert1o(nums: Vec<i32>, target: i32) -> i32 {
     match nums.binary_search(&target) {
         Ok(index) => index as i32,
         Err(index) => index as i32,

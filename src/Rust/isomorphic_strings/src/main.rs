@@ -4,7 +4,33 @@ fn main() {
     println!("Hello, world!");
 }
 
-// attempt 1 - does not work, checks occurrences but not isomorphism (orders need to be the same)
+pub fn is_isomorphic_2(s: String, t: String) -> bool {
+    if s.len() != t.len() {
+        return false;
+    }
+
+    let first_s_char = s.chars().next().unwrap();
+    let mut cache_s = first_s_char;
+
+    let first_t_char = t.chars().next().unwrap();
+    let mut cache_t = first_t_char;
+
+    // assumes both have eq. len()
+    for (i, c) in s.chars().enumerate() {
+        if cache_t != t.chars().nth(i).unwrap() && cache_s == c
+            || cache_t == t.chars().nth(i).unwrap() && cache_s != c
+        {
+            return false;
+        }
+
+        cache_s = c;
+        cache_t = t.chars().nth(i).unwrap();
+    }
+
+    true
+}
+
+// attempt 1 - does not work, checks occucrences but not isomorphism (orders need to be the same)
 pub fn is_isomorphic(s: String, t: String) -> bool {
     let mut s_counts = HashMap::new();
     let mut t_counts = HashMap::new();

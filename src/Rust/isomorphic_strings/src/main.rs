@@ -9,22 +9,31 @@ pub fn is_isomorphic_2(s: String, t: String) -> bool {
         return false;
     }
 
+    let mut mappings = HashMap::new();
+
     let first_s_char = s.chars().next().unwrap();
     let mut cache_s = first_s_char;
 
     let first_t_char = t.chars().next().unwrap();
     let mut cache_t = first_t_char;
 
-    // assumes both have eq. len()
     for (i, c) in s.chars().enumerate() {
-        if cache_t != t.chars().nth(i).unwrap() && cache_s == c
-            || cache_t == t.chars().nth(i).unwrap() && cache_s != c
+        let t_char = t.chars().nth(i).unwrap(); // ← minimal fix: cache nth once
+
+        if cache_t != t_char && cache_s == c
+            || cache_t == t_char && cache_s != c
+            || !mappings.contains_key(&c) && mappings.values().any(|&v| v == t_char)
+            || mappings.contains_key(&c) && mappings.get(&c).unwrap() != &t_char
         {
             return false;
         }
 
+        if c != cache_s && cache_t != t_char {
+            mappings.insert(cache_s, cache_t); // ← fix: insert correct pair
+        }
+
         cache_s = c;
-        cache_t = t.chars().nth(i).unwrap();
+        cache_t = t_char;
     }
 
     true

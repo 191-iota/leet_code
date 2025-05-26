@@ -4,6 +4,35 @@ fn main() {
     println!("Hello, world!");
 }
 
+pub fn is_isomorphic_3(s: String, t: String) -> bool {
+    if s.len() != t.len() {
+        return false;
+    }
+
+    let mut s_to_t = HashMap::new();
+    let mut t_mapped = HashMap::new();
+
+    for (sc, tc) in s.chars().zip(t.chars()) {
+        match (s_to_t.get(&sc), t_mapped.get(&tc)) {
+            // If sc is already mapped but maps to a different tc → fail
+            (Some(&mapped), _) if mapped != tc => {
+                return false;
+            }
+            // If tc is already mapped to another sc → fail
+            (None, Some(_)) => {
+                return false;
+            }
+            // Otherwise insert both directions if not already present
+            _ => {
+                s_to_t.entry(sc).or_insert(tc);
+                t_mapped.entry(tc).or_insert(sc);
+            }
+        }
+    }
+
+    true
+}
+
 pub fn is_isomorphic_2(s: String, t: String) -> bool {
     if s.len() != t.len() {
         return false;

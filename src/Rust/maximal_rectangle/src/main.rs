@@ -6,9 +6,9 @@ fn main() {
     println!("Hello, world!");
 }
 
-pub fn maximal_rectange_2(matrix: Vec<Vec<char>>) -> i32 {
-    let mut first = false;
+pub fn maximal_rectangle_2(matrix: Vec<Vec<char>>) -> i32 {
     let mut histo = vec![0, matrix[0].len()];
+    let mut heap = BinaryHeap::new();
 
     for (i, row) in matrix.iter().enumerate() {
         for (j, column) in row.iter().enumerate() {
@@ -25,15 +25,23 @@ pub fn maximal_rectange_2(matrix: Vec<Vec<char>>) -> i32 {
             }
         }
     }
+
+    for i in 0..histo.len() {
+        heap.push(area_calc_helper(i, histo[i], &histo, 1));
+    }
+
+    *heap.peek().unwrap()
 }
 
-fn gcd(mut a: i32, mut b: i32) -> i32 {
-    while b != 0 {
-        let t = b;
-        b = a % b;
-        a = t;
+fn area_calc_helper(idx: usize, smallest: usize, histo: &Vec<usize>, steps: usize) -> i32 {
+    if idx >= histo.len() && histo[idx] != 0 {
+        if smallest > histo[idx] {
+            return area_calc_helper(idx + 1, histo[idx], histo, steps + 1);
+        } else {
+            return area_calc_helper(idx, smallest, histo, steps + 1);
+        }
     }
-    a.abs()
+    (smallest * steps) as i32
 }
 
 // How im planning to implement it:

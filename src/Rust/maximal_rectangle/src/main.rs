@@ -7,7 +7,7 @@ fn main() {
 }
 
 pub fn maximal_rectangle_2(matrix: Vec<Vec<char>>) -> i32 {
-    let mut histo = vec![0, matrix[0].len()];
+    let mut histo = vec![0; matrix[0].len()];
     let mut heap = BinaryHeap::new();
 
     for (i, row) in matrix.iter().enumerate() {
@@ -24,24 +24,33 @@ pub fn maximal_rectangle_2(matrix: Vec<Vec<char>>) -> i32 {
                 histo[j] += 1;
             }
         }
-    }
-
-    for i in 0..histo.len() {
-        heap.push(area_calc_helper(i, histo[i], &histo, 1));
+        heap.push(loop_row(&histo));
     }
 
     *heap.peek().unwrap()
 }
 
-fn area_calc_helper(idx: usize, smallest: usize, histo: &Vec<usize>, steps: usize) -> i32 {
-    if idx >= histo.len() && histo[idx] != 0 {
-        if smallest > histo[idx] {
-            return area_calc_helper(idx + 1, histo[idx], histo, steps + 1);
-        } else {
-            return area_calc_helper(idx, smallest, histo, steps + 1);
-        }
+fn loop_row(histo: &Vec<usize>) -> i32 {
+    let mut max_area = 0;
+    for i in 0..histo.len() {
+        let area = area_calc_helper(i, histo[i], histo, 1);
+        max_area = max_area.max(area);
     }
-    (smallest * steps) as i32
+    max_area
+}
+
+fn area_calc_helper(idx: usize, mut smallest: usize, histo: &Vec<usize>, mut steps: usize) -> i32 {
+    let mut max_area = 0;
+    let mut i = idx;
+
+    while i < histo.len() && histo[i] != 0 {
+        smallest = smallest.min(histo[i]);
+        max_area = max_area.max((smallest * steps) as i32);
+        steps += 1;
+        i += 1;
+    }
+
+    max_area
 }
 
 // How im planning to implement it:

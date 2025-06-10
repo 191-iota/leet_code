@@ -6,6 +6,55 @@ fn main() {
     println!("Hello, world!");
 }
 
+// attempt 3
+pub fn maximal_rectangle_3(matrix: Vec<Vec<char>>) -> i32 {
+    let mut histo = vec![0; matrix[0].len()];
+
+    for (i, row) in matrix.iter().enumerate() {
+        for (j, column) in row.iter().enumerate() {
+            if i == 0 {
+                if matrix[i][j] == '0' {
+                    histo[j] = 0;
+                } else {
+                    histo[j] = 1;
+                }
+            } else if matrix[i][j] == '0' {
+                histo[j] = 0;
+            } else {
+                histo[j] += 1;
+            }
+        }
+    }
+
+    *heap.peek().unwrap()
+}
+
+fn max_histogram_area(histo: &Vec<usize>) -> i32 {
+    let mut stack: Vec<usize> = Vec::new();
+    let mut max_area = 0;
+    let mut extended = histo.to_vec();
+    extended.push(0);
+
+    for (i, &h) in extended.iter().enumerate() {
+        while let Some(&top) = stack.last() {
+            if h < extended[top] {
+                stack.pop();
+                let width = if let Some(&prev) = stack.last() {
+                    i - prev - 1
+                } else {
+                    i
+                };
+                max_area = max_area.max(extended[top] * width as i32);
+            } else {
+                break;
+            }
+        }
+        stack.push(i);
+    }
+    max_area
+}
+
+// attempt 2 - works but recursive check is O(n^2) at worst
 pub fn maximal_rectangle_2(matrix: Vec<Vec<char>>) -> i32 {
     let mut histo = vec![0; matrix[0].len()];
     let mut heap = BinaryHeap::new();

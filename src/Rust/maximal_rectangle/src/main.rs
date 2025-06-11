@@ -1,3 +1,4 @@
+use std::cmp::max;
 use std::collections::BinaryHeap;
 
 use std::usize;
@@ -25,26 +26,27 @@ pub fn maximal_rectangle_3(matrix: Vec<Vec<char>>) -> i32 {
             }
         }
     }
-
-    *heap.peek().unwrap()
+    max_histogram_area(&histo)
 }
 
-fn max_histogram_area(histo: &Vec<usize>) -> i32 {
+fn max_histogram_area(histo: &Vec<i32>) -> i32 {
     let mut stack: Vec<usize> = Vec::new();
     let mut max_area = 0;
-    let mut extended = histo.to_vec();
-    extended.push(0);
+    let mut histo_vec = histo.to_vec();
+    histo_vec.push(0);
 
-    for (i, &h) in extended.iter().enumerate() {
-        while let Some(&top) = stack.last() {
-            if h < extended[top] {
+    for (i, &h) in histo_vec.iter().enumerate() {
+        while let Some(&top_idx) = stack.last() {
+            if h < histo_vec[top_idx] {
                 stack.pop();
                 let width = if let Some(&prev) = stack.last() {
                     i - prev - 1
                 } else {
                     i
                 };
-                max_area = max_area.max(extended[top] * width as i32);
+
+                let height = histo_vec[top_idx];
+                max_area = max(max_area, height * width as i32);
             } else {
                 break;
             }

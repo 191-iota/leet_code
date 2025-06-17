@@ -4,6 +4,29 @@ use std::path::absolute;
 fn main() {
     println!("Hello, world!");
 }
+
+fn expand(chars: &[char], mut l: i32, mut r: i32, crr: (i32, i32)) -> (i32, i32) {
+    while l >= 0 && (r as usize) < chars.len() && chars[l as usize] == chars[r as usize] {
+        l -= 1;
+        r += 1;
+    }
+    l += 1;
+    r -= 1;
+    if r - l > crr.1 - crr.0 { (l, r) } else { crr }
+}
+
+pub fn longest_palindrome_3(s: String) -> String {
+    let chars: Vec<char> = s.chars().collect();
+    let mut best = (0, 0);
+
+    for i in 0..chars.len() {
+        best = expand(&chars, i as i32, i as i32, best); // odd
+        best = expand(&chars, i as i32, i as i32 + 1, best); // even
+    }
+
+    s[best.0 as usize..=best.1 as usize].to_string()
+}
+
 pub fn longest_palindrome_2(s: String) -> String {
     if s.len() == 1 {
         return s;
@@ -31,7 +54,7 @@ pub fn longest_palindrome_2(s: String) -> String {
             longest_range = (l, r);
         }
     }
-    s[longest_range.0 as usize..=longest_range.1 as usize].to_string()
+    s[longest_range.0 as usize..longest_range.1 as usize].to_string()
 }
 // attempt 1 - does not work
 pub fn longest_palindrome(s: String) -> String {

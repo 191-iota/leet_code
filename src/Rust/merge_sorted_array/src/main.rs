@@ -1,5 +1,28 @@
+use std::usize;
+
 fn main() {
     println!("Hello, world!");
+}
+pub fn merge_o(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
+    let mut ptr1 = 0;
+    let mut ptr2 = 0;
+
+    while ptr1 < m && ptr2 < n {
+        if nums1[ptr1 as usize] > nums2[ptr2 as usize] {
+            nums1[ptr1 as usize] = nums2[ptr2 as usize];
+            ptr2 += 1;
+            ptr1 += 1;
+        } else {
+            break;
+        }
+    }
+    // if nums1 numbers are remaining we assume its already sorted
+
+    while n > ptr2 {
+        nums1[(ptr1 + ptr2) as usize] = nums2[ptr2 as usize];
+        ptr1 += 1;
+        ptr2 += 1;
+    }
 }
 
 pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {

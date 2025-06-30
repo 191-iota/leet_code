@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::thread::current;
 
 #[derive(PartialEq, Eq, Clone, Debug)]
@@ -14,19 +15,24 @@ impl ListNode {
 }
 
 pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-    let mut node = match head {
-        Some(n) => n,
-        None => return None,
-    };
-
-    let last_number = node.val;
-    let mut de_duplicated: Option<Box<ListNode>> = Some(Box::new(ListNode::new(last_number)));
-    de_duplicated = inner(node, Some(de_duplicated));
-
-    de_duplicated
+    let mut unique_nums = HashSet::new();
+    inner(&mut unique_nums, head)
 }
 
-pub fn inner(head: Box<ListNode>, de_duplicated: Option<Box<ListNode>>) -> Option<Box<ListNode>> {}
+fn inner(set: &mut HashSet<i32>, head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    match head {
+        None => None,
+        Some(mut node) => {
+            let next = node.next.take();
+            if set.insert(node.val) {
+                node.next = inner(set, next);
+                Some(node)
+            } else {
+                inner(set, next)
+            }
+        }
+    }
+}
 
 fn main() {
     println!("Hello, world!");

@@ -33,4 +33,8 @@
 ### Hard
 - FindMedianOfTwoSortedArrays
 
+<<<<<<< Updated upstream
 Note: not up to date as of right now but mostly complete
+=======
+I don't update this list anymore
+>>>>>>> Stashed changes

@@ -1,4 +1,4 @@
-use std::{collections::HashMap, hash::Hash};
+use std::collections::HashMap;
 
 fn main() {
     let test = vec![2, 7, 11, 15];
@@ -11,12 +11,24 @@ fn main() {
         .for_each(|v| println!("{v}"));
 }
 
+// attempt 2 - pretty unsafe code but we're assuming that there won't be any edgecases
 pub fn two_sum_2(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let mut map = HashMap::new();
-    let mut res = Vec::new();
 
     // 1. put in vec values into hashmap
-    nums.iter().for_each(|v| map.insert(k, v));
+    nums.iter().enumerate().for_each(|(u, v)| {
+        map.insert(v, u);
+    });
+
+    for (i, val) in nums.iter().enumerate() {
+        let complement = target - val;
+        if let Some(v) = map.get(&complement) {
+            if i != *v {
+                return vec![i as i32, *v as i32];
+            }
+        }
+    }
+    vec![]
 }
 
 // attempt 1 - works but pretty inefficient

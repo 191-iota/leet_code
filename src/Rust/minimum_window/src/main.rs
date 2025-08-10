@@ -5,8 +5,8 @@ fn main() {
 }
 
 // s and t of length m and n
-//
-// Attempt 1
+// TODO: Optimize further
+// Attempt X
 pub fn min_window(s: String, t: String) -> String {
     if s.len() < t.len() {
         return "".to_string();
@@ -23,6 +23,7 @@ pub fn min_window(s: String, t: String) -> String {
     let mut matching_keys = 0;
     let mut start_bound: usize = 0;
     let mut end_bound: usize = 0;
+    let mut found = false;
 
     while start_bound < chars.len() && end_bound < chars.len() {
         for (i, s) in chars.iter().enumerate().skip(end_bound) {
@@ -36,6 +37,7 @@ pub fn min_window(s: String, t: String) -> String {
                 end_bound = i + 1;
 
                 if matching_keys == ideal.len() {
+                    found = true;
                     if (i + 1 - start_bound) < (ranges.1 - ranges.0) {
                         ranges = (start_bound, i + 1);
                     }
@@ -43,9 +45,8 @@ pub fn min_window(s: String, t: String) -> String {
                 }
             }
         }
-
         // make window smaller left to right
-        while start_bound < chars.len() && end_bound < chars.len() {
+        while start_bound < chars.len() {
             let current_char = &chars[start_bound];
             if ideal.contains_key(current_char) && curr.contains_key(current_char) {
                 let count = *curr.get(current_char).unwrap();
@@ -54,13 +55,15 @@ pub fn min_window(s: String, t: String) -> String {
                         if matching_keys == ideal.len()
                             && (ranges.1 - ranges.0) > (end_bound - start_bound)
                         {
-                            println!("{}, {}", ranges.0, ranges.1);
                             ranges = (start_bound, end_bound);
+                            found = true;
                         }
                         *v -= 1;
                         matching_keys -= 1;
                         start_bound += 1;
                         break;
+                    } else {
+                        *v -= 1;
                     }
                 }
             }
@@ -68,5 +71,9 @@ pub fn min_window(s: String, t: String) -> String {
         }
     }
 
-    s[ranges.0..ranges.1].to_string()
+    if found {
+        s[ranges.0..ranges.1].to_string()
+    } else {
+        "".to_string()
+    }
 }

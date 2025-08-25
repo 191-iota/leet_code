@@ -4,6 +4,50 @@ fn main() {
     println!("Hello, world!");
 }
 
+// Attempt 1o
+pub fn min_window_1o(s: String, t: String) -> String {
+    let (s_bytes, t_bytes) = (s.as_bytes(), t.as_bytes());
+    let mut need = [0i32; 256];
+    let mut deficit = 0;
+
+    for &c in t_bytes {
+        if need[c as usize] == 0 {
+            deficit += 1;
+        }
+        need[c as usize] += 1;
+    }
+
+    let (mut l, mut r, mut best_l, mut best_len) = (0, 0, 0, usize::MAX);
+
+    while r < s_bytes.len() {
+        let c = s_bytes[r] as usize;
+        need[c] -= 1;
+        if need[c] == 0 {
+            deficit -= 1;
+        }
+        r += 1;
+
+        while deficit == 0 {
+            if r - l < best_len {
+                best_l = l;
+                best_len = r - l;
+            }
+            let c = s_bytes[l] as usize;
+            need[c] += 1;
+            if need[c] == 1 {
+                deficit += 1;
+            }
+            l += 1;
+        }
+    }
+
+    if best_len == usize::MAX {
+        "".to_string()
+    } else {
+        String::from_utf8(s_bytes[best_l..best_l + best_len].to_vec()).unwrap()
+    }
+}
+
 // s and t of length m and n
 // TODO: Optimize further
 // Attempt X

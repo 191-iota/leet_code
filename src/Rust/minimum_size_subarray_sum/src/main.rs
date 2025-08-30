@@ -6,6 +6,39 @@ fn main() {
     println!("Hello, world!");
 }
 
+pub fn min_sub_array_len_3(target: i32, nums: Vec<i32>) -> i32 {
+    let mut total = 0;
+    let mut count = 0;
+    let mut r = 0;
+    let mut l = 0;
+    let mut l_turn = false;
+    let mut smallest = i32::MAX;
+
+    while r < nums.len() || (l < nums.len() && total >= target) {
+        if !l_turn {
+            total += nums[r];
+            count += 1;
+            if total >= target {
+                l_turn = true;
+            } else {
+                r += 1;
+            }
+        } else {
+            total -= nums[l];
+            count -= 1;
+            l += 1;
+            if total < target {
+                l_turn = false;
+            }
+        }
+
+        if total >= target {
+            smallest = cmp::min(smallest, count);
+        }
+    }
+    if smallest == i32::MAX { 0 } else { smallest }
+}
+
 // Attempt 2 - Doesn't work, doesn't take into account different combos
 pub fn min_sub_array_len_2(target: i32, nums: Vec<i32>) -> i32 {
     let mut current_window = 0;

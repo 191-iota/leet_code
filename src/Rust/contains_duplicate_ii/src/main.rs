@@ -6,20 +6,23 @@ fn main() {
     println!("Hello, world!");
 }
 
+// Attempt 2 - Kind of not faster
 pub fn contains_nearby_duplicate(nums: Vec<i32>, k: i32) -> bool {
     let mut seen_set = HashSet::new();
-    let mut queue = VecDeque::new();
+    let mut l = 0;
+    let mut r = 0;
 
     for (i, v) in nums.iter().enumerate() {
-        if seen_set.contains(v) {
-            let last_index = queue.pop_front().unwrap();
-            if (i as i32 - last_index as i32) <= k {
-                return true;
-            }
+        if r - l >= k {
+            seen_set.remove(&nums[l as usize]);
+            seen_set.insert(v);
         }
 
-        seen_set.insert(v);
-        queue.push_back(i);
+        if seen_set.contains(v) {
+            return true;
+        }
+
+        r += 1;
     }
     return false;
 }

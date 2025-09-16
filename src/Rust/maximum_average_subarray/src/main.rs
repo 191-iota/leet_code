@@ -5,6 +5,31 @@ fn main() {
     println!("Hello, world!");
 }
 
+// Attempt 2
+pub fn find_max_average_2(nums: Vec<i32>, k: i32) -> f64 {
+    let mut r_ptr = k;
+    let mut l_ptr = 0;
+
+    let mut sum = 0;
+    // Part one, add em up to k
+    sum = nums.iter().take(k as usize).sum();
+    let mut max_avg = sum as f64 / k as f64;
+
+    while r_ptr < nums.len() as i32 {
+        sum += nums[r_ptr as usize];
+        sum -= nums[l_ptr];
+        l_ptr += 1;
+        r_ptr += 1;
+
+        let current_avg = sum as f64 / k as f64;
+        if current_avg > max_avg {
+            max_avg = current_avg;
+        }
+    }
+
+    max_avg
+}
+
 // Attempt 1
 pub fn find_max_average(nums: Vec<i32>, k: i32) -> f64 {
     let mut l_ptr = 0;

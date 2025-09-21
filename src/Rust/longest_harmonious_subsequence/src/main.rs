@@ -1,5 +1,22 @@
+use std::cmp::max;
+use std::collections::HashMap;
+
 fn main() {
     println!("Hello, world!");
+}
+
+// Attempt 2 - does not work
+pub fn find_lhs(nums: Vec<i32>) -> i32 {
+    let mut freq = HashMap::new();
+
+    for v in nums.iter() {
+        *freq.entry(v).or_insert(0) += 1;
+    }
+    let mut best = 0;
+    for v in freq.values() {
+        best = max(*v + freq.get(&(v + 1)).unwrap_or(&0), best);
+    }
+    best
 }
 
 // Attempt 1 - (does not work) -> this has been done for contiguous checks

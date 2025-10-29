@@ -6,31 +6,28 @@ fn main() {
 }
 
 pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-
+    dfs(root, None, None)
 }
 
 fn dfs(node: Option<Rc<RefCell<TreeNode>>>, min: Option<i32>, max: Option<i32>) -> bool {
+    if let Some(n) = node {
+        let n = n.borrow();
 
-    let node = unwrap_node(node);
-    if node.is_none(){
-        return true;
-    }
-    
-    let value = node.val;
-    if let Some(v) = min {
-        if v < node.val {
-            dfs(node.left, None, node.val);
-            dfs(node.right, node.val, None);
-        } else {
+        let value = n.val;
+        if let Some(min) = min {
+            if value <= min {
+                return false;
+            }
         }
-    } else if let Some(v) = max {
-        if v < node {
-            dfs(, min, max)
-        } else {
+
+        if let Some(max) = max {
+            if value >= max {
+                return false;
+            }
         }
-    } else {
-        true
+        return dfs(n.left.clone(), min, Some(value)) && dfs(n.right.clone(), Some(value), max);
     }
+    true
 }
 
 fn unwrap_node(opt: Option<Rc<RefCell<TreeNode>>>) -> Option<TreeNode> {

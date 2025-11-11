@@ -30,15 +30,6 @@ fn dfs(node: Option<Rc<RefCell<TreeNode>>>, min: Option<i32>, max: Option<i32>) 
     true
 }
 
-fn unwrap_node(opt: Option<Rc<RefCell<TreeNode>>>) -> Option<TreeNode> {
-    opt.and_then(|rc| {
-        match Rc::try_unwrap(rc) {
-            Ok(refcell) => Some(refcell.into_inner()),
-            Err(_) => None, // still shared, cannot take ownership
-        }
-    })
-}
-
 #[derive(Debug, PartialEq, Eq)]
 pub struct TreeNode {
     pub val: i32,
